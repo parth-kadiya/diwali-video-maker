@@ -1,0 +1,121 @@
+/* diwali\client\src\popup.css (Fully Updated) */
+
+#cropped-preview {
+  display: none;
+  margin: 20px auto;
+  border-radius: 50%;
+}
+
+/* ===== SAVE & CROP BUTTON STYLE CHANGE ===== */
+#continue-btn {
+  width: 100%;
+  padding: 12px;
+  background-image: linear-gradient(145deg, #fceabb, #f8b500);
+  border: none;
+  border-radius: 8px;
+  color: #333;
+  font-size: 16px;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(248, 181, 0, 0.2);
+  flex-shrink: 0;
+}
+
+#continue-btn:hover {
+  background-image: linear-gradient(145deg, #f8b500, #fceabb);
+  box-shadow: 0 6px 20px rgba(248, 181, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9998;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.75);
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+/* ===== MODAL BACKGROUND & STYLE CHANGE ===== */
+.modal-content {
+  background: rgba(0, 0, 0, 0.9); /* Black background */
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 215, 0, 0.2); /* Faint golden border */
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.2); /* Golden glow */
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  width: auto;
+  max-width: 800px;
+  max-height: 90vh;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+}
+
+/* ===== CLOSE BUTTON STYLE CHANGE ===== */
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 9999;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  font-size: 1.2rem; /* Thoda chhota size */
+  color: #FFD700; /* Golden color */
+  cursor: pointer;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.close-modal:hover {
+  background: rgba(255, 215, 0, 0.2);
+  color: #fff;
+  transform: rotate(90deg);
+}
+
+.image-crop-container {
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  min-height: 0;
+}
+
+#modal-image-preview {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.cropper-view-box {
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px #39f;
+  outline: 0;
+}
+
+.cropper-face {
+  border-radius: 50%;
+}
+
+.cropper-point {
+  background-color: #39f;
+}

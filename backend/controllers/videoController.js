@@ -51,7 +51,11 @@ exports.generateVideo = async (req, res) => {
                     // YAHAN BHI BADLAV HUA HAI: escapedFontPath ki jagah fontPath use karein
                     `[bg_with_photo] drawtext=fontfile=${fontPath}:text='${escapedName}':x=(w-text_w)/2:y=${nameY}:fontsize=${nameFontSize}:fontcolor=white:shadowcolor=black:shadowx=2:shadowy=2`
                 ])
-                .outputOptions('-c:a copy')
+                .outputOptions([
+                    '-preset ultrafast', // CPU ka use kam karega
+                    '-crf 28',           // Thodi quality kam karke file size aur processing time kam karega
+                    '-c:a copy'          // Audio ko waisa hi rakhega
+                ])
                 .toFormat('mp4')
                 .on('end', () => resolve())
                 .on('error', (err) => {

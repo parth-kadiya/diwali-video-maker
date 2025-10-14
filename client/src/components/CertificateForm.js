@@ -275,10 +275,23 @@ if (fileName.length > maxLength) {
       <div className="error-msg photo-error text-danger small mt-1 mb-2">{photoError}</div>
       <canvas id="cropped-preview" ref={croppedPreviewRef} width="150" height="150" style={{ borderRadius: '50%' }}></canvas>
       <div className="text-center">
-       <button type="button" id="download-btn" className="btn-submit" onClick={handleDownload} disabled={isLoading}>
-        {isLoading ? 'Generating Video...' : 'Generate Video'}
-       </button>
-      </div>
+        <button type="button" id="download-btn" className="btn-submit" onClick={handleDownload} disabled={isLoading}>
+            {isLoading ? (
+                <>
+                  <span className="loader"></span>
+                  <span>Generating Video...</span>
+                </>
+            ) : (
+                'Generate Video'
+            )}
+        </button>
+    </div>
+
+    {isLoading && (
+        <p className="processing-message">
+            Processing video... takes around 1 min.
+        </p>
+    )}
      </form>
     </div>
    </div>

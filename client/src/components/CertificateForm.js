@@ -9,6 +9,7 @@ const CertificateForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [nameError, setNameError] = useState('');
   const [photoError, setPhotoError] = useState('');
+  const [isGenerated, setIsGenerated] = useState(false);
 
   const modalImageRef = useRef(null);
   const croppedPreviewRef = useRef(null);
@@ -103,6 +104,7 @@ const CertificateForm = () => {
   // (handleFileChange, closeModal, handleCrop, handleDownload, and return JSX)
 
   const handleFileChange = (e) => {
+  setIsGenerated(false);
   setPhotoError('');
   const file = e.target.files[0];
   if (!file) return;
@@ -194,44 +196,65 @@ if (fileName.length > maxLength) {
  };
 
  const handleDownload = async () => {
-  let hasError = false;
-  if (!name.trim()) {
-   setNameError('Please Enter your name');
-   hasError = true;
-  } else {
-   setNameError('');
-  }
-  if (!croppedPhoto) {
-   setPhotoError('Please upload and crop your photo');
-   hasError = true;
-  } else {
-   setPhotoError('');
-  }
-  if (hasError) return;
-  if (audioRef.current) {
-      audioRef.current.pause();
-  }
-  setIsLoading(true);
-  try {
-   const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
-   const response = await axios.post(`${apiUrl}/api/generate-video`, {
-    name: name,
-    photo: croppedPhoto,
-   }, { responseType: 'blob' });
-   const url = window.URL.createObjectURL(new Blob([response.data]));
-   const link = document.createElement('a');
-   link.href = url;
-   link.setAttribute('download', `${name}_wishes.mp4`);
-   document.body.appendChild(link);
-   link.click();
-   link.parentNode.removeChild(link);
-  } catch (error) {
-   console.error('Error generating video:', error);
-   alert('Sorry, something went wrong. Please try again.');
-  } finally {
-   setIsLoading(false);
-  }
- };
+    let hasError = false;
+    if (!name.trim()) {
+        setNameError('Please Enter your name');
+        hasError = true;
+    } else {
+        setNameError('');
+    }
+    if (!croppedPhoto) {
+        setPhotoError('Please upload and crop your photo');
+        hasError = true;
+    } else {
+        setPhotoError('');
+    }
+    if (hasError) return;
+    if (audioRef.current) {
+        audioRef.current.pause();
+    }
+    setIsLoading(true);
+    setIsGenerated(false);
+    try {
+        const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+        const response = await axios.post(`${apiUrl}/api/generate-video`, {
+            name: name,
+            photo: croppedPhoto,
+        }, { responseType: 'blob' });
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', `${name}_wishes.mp4`);
+        document.body.appendChild(link);
+        link.click();
+        link.parentNode.removeChild(link);
+        setIsGenerated(true);
+    } catch (error) {
+        console.error('Error generating video:', error);
+        
+        // ===== YAHAN Galti Theek Ki Gayi Hai =====
+        if (error.response && error.response.status === 429) {
+            // Kyunki responseType 'blob' hai, error data bhi ek blob hai.
+            // Humein use text mein padhkar JSON message nikalna hoga.
+            try {
+                const errorBlob = error.response.data;
+                const errorText = await errorBlob.text(); // Blob ko text mein convert karein
+                const errorJson = JSON.parse(errorText); // Text ko JSON mein convert karein
+                alert(errorJson.msg); // Ab sahi message dikhayenge
+            } catch (e) {
+                // Agar upar kuch fail hota hai to fallback
+                alert('Server is busy. Please try again in a moment.');
+            }
+        } else {
+            // Baaki sab errors ke liye purana message
+            alert('Sorry, something went wrong. Please try again.');
+        }
+        // ============================================
+
+    } finally {
+        setIsLoading(false);
+    }
+};
 
  return (
   <>
@@ -252,6 +275,7 @@ if (fileName.length > maxLength) {
         onChange={(e) => {
          setName(e.target.value);
          if (nameError) setNameError('');
+         setIsGenerated(false);
         }}
         required
        />
@@ -276,15 +300,17 @@ if (fileName.length > maxLength) {
       <canvas id="cropped-preview" ref={croppedPreviewRef} width="150" height="150" style={{ borderRadius: '50%' }}></canvas>
       <div className="text-center">
         <button type="button" id="download-btn" className="btn-submit" onClick={handleDownload} disabled={isLoading}>
-            {isLoading ? (
-                <>
-                  <span className="loader"></span>
-                  <span>Generating Video...</span>
-                </>
-            ) : (
-                'Generate Video'
-            )}
-        </button>
+  {isLoading ? (
+    <>
+      <span className="loader"></span>
+      <span>Generating Video...</span>
+    </>
+  ) : isGenerated ? (
+    'Video Generated!' // <-- THIS IS THE NEW TEXT
+  ) : (
+    'Generate Video'
+  )}
+</button>
     </div>
 
     {isLoading && (

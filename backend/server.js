@@ -23,6 +23,10 @@ mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('MongoDB Connected...'))
   .catch(err => console.error(err));
 
+  app.get('/', (req, res) => {
+  res.status(200).send('Server is alive and running!');
+});
+
 // Routes
 app.use('/api', require('./routes/videoRoutes'));
 

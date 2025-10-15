@@ -1,0 +1,26 @@
+{
+  "name": "diwali",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+  "start:client": "npm start --prefix client",
+  "dev:backend": "npm run dev --prefix backend",
+  "dev": "concurrently \"npm run dev:backend\" \"npm run start:client\""
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/parth-kadiya/diwali-video-maker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/parth-kadiya/diwali-video-maker/issues"
+  },
+  "homepage": "https://github.com/parth-kadiya/diwali-video-maker#readme",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

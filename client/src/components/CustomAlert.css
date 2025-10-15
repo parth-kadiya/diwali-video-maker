@@ -1,0 +1,66 @@
+.alert-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  animation: fadeIn 0.3s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.alert-box {
+  background: rgba(0, 0, 0, 0.85);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  padding: 30px;
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.2);
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  transform: scale(0.9);
+  animation: popIn 0.3s forwards;
+}
+
+@keyframes popIn {
+  to {
+    transform: scale(1);
+  }
+}
+
+.alert-message {
+  font-family: "Times New Roman", Times, serif;
+  color: #eee;
+  font-size: 18px;
+  margin: 0 0 25px 0;
+  line-height: 1.5;
+}
+
+.alert-button {
+  padding: 10px 30px;
+  background-image: linear-gradient(145deg, #fceabb, #f8b500);
+  border: none;
+  border-radius: 8px;
+  color: #333;
+  font-size: 16px;
+  font-family: "Times New Roman", Times, serif;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.alert-button:hover {
+  background-image: linear-gradient(145deg, #f8b500, #fceabb);
+  transform: translateY(-2px);
+}

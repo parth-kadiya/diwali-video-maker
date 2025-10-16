@@ -1,2 +1,5 @@
 # Root node_modules folder ko ignore karein
 /node_modules/
+
+# Other folder ko ignore karein
+/other/

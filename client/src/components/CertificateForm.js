@@ -228,7 +228,7 @@ const CertificateForm = () => {
                 setPopupMessage(errorJson.msg); // Message set kiya
                 setShowPopup(true); // Popup dikhaya
             } catch (e) {
-                setPopupMessage('Server is busy. Please try again in a moment.');
+                setPopupMessage('Another video is processing on server, Please try again in a moment.');
                 setShowPopup(true);
             }
         } else {

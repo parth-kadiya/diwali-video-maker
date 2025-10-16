@@ -10,7 +10,7 @@ let isProcessing = false;
 
 exports.generateVideo = async (req, res) => {
     if (isProcessing) {
-        return res.status(429).json({ msg: 'Server is currently busy. Please try again in a moment.' });
+        return res.status(429).json({ msg: 'Another video is processing on server, Please try again in a moment.' });
     }
     isProcessing = true;
     

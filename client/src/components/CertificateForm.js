@@ -295,7 +295,7 @@ const CertificateForm = () => {
             <div className="error-msg photo-error text-danger small mt-1 mb-2">{photoError}</div>
             <canvas id="cropped-preview" ref={croppedPreviewRef} width="150" height="150" style={{ borderRadius: '50%' }}></canvas>
             <div className="text-center">
-              <button type="button" id="download-btn" className="btn-submit" onClick={handleDownload} disabled={isLoading}>
+              <button type="button" id="download-btn" className="btn-submit" onClick={handleDownload} disabled={isLoading || isGenerated}>
                 {isLoading ? (
                   <>
                     <span className="loader"></span>
@@ -308,11 +308,12 @@ const CertificateForm = () => {
                 )}
               </button>
             </div>
-            {isLoading && statusMessage && (
-              <p className="processing-message">
-                {statusMessage}
-              </p>
-            )}
+            {(isLoading || statusMessage) && ( // Yahan `statusMessage` bhi add kiya
+  <p className="processing-message">
+    {/* Agar statusMessage hai to woh dikhao, warna default */}
+    {statusMessage || 'Processing video... takes around 1 min.'}
+  </p>
+)}
           </form>
         </div>
       </div>

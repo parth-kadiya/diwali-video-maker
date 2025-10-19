@@ -1,7 +1,3 @@
-// diwali\client\public\fireworks.js
-
-// Yahan se event listeners hata diye gaye hain
-
 window.requestAnimationFrame =
   window.requestAnimationFrame ||
   window.webkitRequestAnimationFrame ||
@@ -21,11 +17,9 @@ var canvas,
   xPoint,
   yPoint;
 
-// Humne 'onLoad' function ko 'initFireworks' naam diya hai
-// Aur ise window object par set kiya hai taaki React se call kar sakein
 window.initFireworks = function () {
   canvas = document.getElementById("canvas");
-  // Check karein ki canvas mil gaya hai ya nahi
+
   if (!canvas) {
     console.error("Fireworks Error: Canvas element not found!");
     return;
@@ -33,7 +27,6 @@ window.initFireworks = function () {
   ctx = canvas.getContext("2d");
   resizeCanvas();
 
-  // Resize listener ko yahan andar add karein
   window.addEventListener("resize", resizeCanvas, false);
 
   window.requestAnimationFrame(updateWorld);

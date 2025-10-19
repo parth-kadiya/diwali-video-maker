@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import Cropper from 'cropperjs';
-import CustomAlert from './CustomAlert'; // << NAYA COMPONENT IMPORT KIYA
+import CustomAlert from './CustomAlert'; 
 
 const CertificateForm = () => {
   const [name, setName] = useState('');
@@ -13,10 +13,10 @@ const CertificateForm = () => {
   const [isGenerated, setIsGenerated] = useState(false);
   const [statusMessage, setStatusMessage] = useState('');
 
-  // ===== NAYI STATES POPUP KE LIYE =====
+  
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState('');
-  // =====================================
+  
 
   const modalImageRef = useRef(null);
   const croppedPreviewRef = useRef(null);
@@ -25,7 +25,7 @@ const CertificateForm = () => {
   const audioRef = useRef(null);
 
   useEffect(() => {
-    // useEffect ka poora code waisa hi rahega (koi change nahi)
+    
     if (!window.initFireworks) {
         const script = document.createElement('script');
         script.src = process.env.PUBLIC_URL + '/fireworks.js';
@@ -82,7 +82,7 @@ const CertificateForm = () => {
     };
   }, []);
 
-  // handleFileChange, closeModal, handleCrop (inmein koi badlav nahi)
+  
   const handleFileChange = (e) => {
     setIsGenerated(false);
     setPhotoError('');
@@ -196,7 +196,7 @@ const CertificateForm = () => {
     setIsGenerated(false);
     
     try {
-        const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+        const apiUrl = process.env.REACT_APP_API_URL || 'http:
         
         setStatusMessage('Waking up server, please wait...');
         await axios.get(apiUrl);
@@ -219,14 +219,14 @@ const CertificateForm = () => {
     } catch (error) {
         console.error('Error generating video:', error);
         
-        // ===== ALERT() KI JAGAH NAYE POPUP KA USE KIYA GAYA HAI =====
+        
         if (error.response && error.response.status === 429) {
             try {
                 const errorBlob = error.response.data;
                 const errorText = await errorBlob.text();
                 const errorJson = JSON.parse(errorText);
-                setPopupMessage(errorJson.msg); // Message set kiya
-                setShowPopup(true); // Popup dikhaya
+                setPopupMessage(errorJson.msg); 
+                setShowPopup(true); 
             } catch (e) {
                 setPopupMessage('Another video is processing on server, Please try again in a moment.');
                 setShowPopup(true);
@@ -235,7 +235,7 @@ const CertificateForm = () => {
             setPopupMessage('Sorry, something went wrong. Please try again.');
             setShowPopup(true);
         }
-        // ==============================================================
+        
 
     } finally {
         setIsLoading(false);
@@ -245,17 +245,17 @@ const CertificateForm = () => {
 
   return (
     <>
-      {/* ===== NAYA POPUP COMPONENT YAHAN ADD KIYA GAYA HAI ===== */}
+      {}
       <CustomAlert 
         message={popupMessage}
         show={showPopup}
         onClose={() => setShowPopup(false)}
       />
-      {/* ========================================================== */}
+      {}
 
       <canvas id="canvas"></canvas>
       <div className="form-card">
-        {/* Baaki ka poora JSX waisa hi rahega (koi change nahi) */}
+        {}
         <div className="form-content-wrapper">
           <h2 className="form-title">
             <span className="title-happy">Happy</span>
@@ -308,9 +308,9 @@ const CertificateForm = () => {
                 )}
               </button>
             </div>
-            {(isLoading || statusMessage) && ( // Yahan `statusMessage` bhi add kiya
+            {(isLoading || statusMessage) && ( 
   <p className="processing-message">
-    {/* Agar statusMessage hai to woh dikhao, warna default */}
+    {}
     {statusMessage || 'Processing video... takes around 1 min.'}
   </p>
 )}

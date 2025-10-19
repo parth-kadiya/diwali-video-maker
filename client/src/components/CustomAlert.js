@@ -1,5 +1,5 @@
 import React from 'react';
-import './CustomAlert.css'; // Humne jo CSS file banayi, use import karein
+import './CustomAlert.css'; 
 
 const CustomAlert = ({ message, show, onClose }) => {
   if (!show) {

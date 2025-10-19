@@ -196,7 +196,7 @@ const CertificateForm = () => {
     setIsGenerated(false);
     
     try {
-        const apiUrl = process.env.REACT_APP_API_URL || 'http:
+        const apiUrl = process.env.REACT_APP_API_URL || 'http://localhost:5000';
         
         setStatusMessage('Waking up server, please wait...');
         await axios.get(apiUrl);
